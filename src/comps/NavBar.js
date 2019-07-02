@@ -7,10 +7,16 @@ const NavBar = () => {
         <nav>
         <ul className="app-nav flex ">
             <li>
-                <NavLink  className="Nav_link"  activeClassName="activeRoute"  to="/home">Home</NavLink>
+                <NavLink  className="nav-link"  
+                    activeClassName="activeRoute"  
+                    to="/home">Home
+                </NavLink> |
             </li>
             <li>
-                <NavLink className="Nav_link"  activeClassName="activeRoute" to="/movie">Movies</NavLink> 
+                <NavLink className="nav-link" 
+                    activeClassName="activeRoute"
+                     to="/movie">Movies
+                </NavLink> 
             </li>
         </ul>
         </nav>

@@ -1,26 +1,32 @@
-import axios from 'axios'
+import Axios from 'axios'
 import storageService from './storageService'
-
-const Axios = axios.create({
-  withCredentials: true,
-})
 
 const FAVORITES_KEY = 'favorite-movies'
 const BASE_PATH = 'https://swapi.co/api'
 
 
 async function query() {
-  const res = await Axios.get(`${BASE_PATH}/films`)
-  var movies = res.data.results
-  movies = _findFavorites(movies)
-  return movies
-}
-async function getById(id) {
-  const res = await Axios.get(`${BASE_PATH}/films/${id}`)
-  return res.data
+  try {
+    const res = await Axios.get(`${BASE_PATH}/films`)
+    var movies = res.data.results
+    movies = _markFavorites(movies)
+    return movies
+  }
+  catch (err) { throw (err) }
 }
 
-function _findFavorites(movies) {
+
+async function getById(id) {
+  try {
+    const res = await Axios.get(`${BASE_PATH}/films/${id}`)
+    return res.data
+  }
+  catch (err) { throw (err) }
+}
+
+
+
+function _markFavorites(movies) {
   const favorites = storageService.loadFromStorage(FAVORITES_KEY) 
   return movies.map(movie => {
       if (!favorites || !favorites.length) {
@@ -36,6 +42,7 @@ function _findFavorites(movies) {
   })
 }
 
+
 function toggleFavorite(movie) {
   movie.isFavorite = !movie.isFavorite
   var favorites = storageService.loadFromStorage(FAVORITES_KEY) 
@@ -49,6 +56,7 @@ function toggleFavorite(movie) {
   storageService.saveToStorage(FAVORITES_KEY, favorites)
   return movie
 }
+
 
 export default {
   query,

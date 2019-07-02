@@ -3,13 +3,18 @@ import movieService from '../services/movieService'
 import MoviesList from '../comps/MoviesList'
 
 
-class HomeComp extends Component {
-    state = {}
+class MoviesPage extends Component {
+    
+    state = { movies:[] }
        
-
     async componentDidMount() {
-        var movies = await movieService.query()
-        this.setState({movies})
+        try {
+            var movies = await movieService.query()
+            this.setState({movies})
+        }
+        catch (err) {
+            console.log(err)
+        }
         
     }
     toggleFavorite = (movieToLike) => {
@@ -23,11 +28,11 @@ class HomeComp extends Component {
         return (
             <section className="movies">
                 {this.state.movies &&
-                <MoviesList movies={this.state.movies} onToggleFavorite={this.toggleFavorite}/>}
-              
+                <MoviesList movies={this.state.movies} 
+                    onToggleFavorite={this.toggleFavorite}/>}
             </section>
         )
     }
 }
 
-export default HomeComp;
+export default MoviesPage

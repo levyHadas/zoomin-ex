@@ -3,15 +3,16 @@ import React, { Component, Fragment } from 'react'
 import movieService from '../services/movieService'
 
 
-class ContactDetails extends Component {
-    state = {}
+class MovieDetails extends Component {
+    state = { movie:{} }
     
     async componentDidMount() {
         const id = this.props.match.params.id
-        console.log(id)
-        const movie = await movieService.getById(id)
-        console.log(movie)
-        this.setState({ movie })
+        try {
+            const movie = await movieService.getById(id)
+            this.setState({ movie })
+        }
+        catch (err) { console.log(err) }
     }
 
     
@@ -23,7 +24,6 @@ class ContactDetails extends Component {
                 <h1>{this.state.movie.title}</h1>
                 <p>{this.state.movie.opening_crawl}</p>
                 <p>Director: {this.state.movie.director}</p>
-
                 <p>Producer: {this.state.movie.producer}</p>
                 <p>Episode Num.  {this.state.movie.episode_id}</p>
                 <p>Release Date.  {this.state.movie.release_date}</p>
@@ -33,4 +33,4 @@ class ContactDetails extends Component {
     }
 }
     
-export default ContactDetails;
+export default MovieDetails

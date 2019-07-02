@@ -3,9 +3,8 @@ import MovieItem from './MovieItem'
 
 
 
-const MoviewList = (props) => {
+const MovieList = (props) => {
     const movieItems = props.movies.map(movie => {
-    
         return (
             <li key={movie.episode_id} className="movies-list-item">          
                 <MovieItem movie={movie} onToggleFavorite={props.onToggleFavorite}/>
@@ -16,4 +15,4 @@ const MoviewList = (props) => {
     
 }
 
-export default MoviewList
+export default MovieList

@@ -15,8 +15,8 @@ class MoviesPage extends Component {
         catch (err) {
             console.log(err)
         }
-        
     }
+
     toggleFavorite = (movieToLike) => {
         var likedMovie = movieService.toggleFavorite(movieToLike)
         var movies = this.state.movies
@@ -24,6 +24,7 @@ class MoviesPage extends Component {
         movies[likedIdx] = likedMovie
         this.setState({movies})
     } 
+    
     render() {
         return (
             <section className="movies">
